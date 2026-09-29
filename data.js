@@ -20,7 +20,8 @@ window.DASHBOARD_DATA = {
     {name:'BitFunded 10K #2',prop:'BitFunded',size:10000,status:'Live',everLive:true,cost:49.5,date:null,meta:'2 Steps · coste imputado $49.50 · Live 26/08/2026'},
     {name:'BitFunded 25K #1',prop:'BitFunded',size:25000,status:'Perdida',everLive:false,cost:124.5,date:null,meta:'2 Steps · coste imputado $124.50 · perdida 27/08/2026 en Challenge'},
     {name:'BitFunded 25K #2',prop:'BitFunded',size:25000,status:'Challenge',everLive:false,cost:124.5,date:null,meta:'2 Steps · coste imputado $124.50'},
-    {name:'Propr 10K',prop:'Propr',size:10000,status:'Pendiente',everLive:false,cost:110,date:'2026-08-21',meta:'Coste $110 · estado y modalidad pendientes'}
+    {name:'Propr 10K',prop:'Propr',size:10000,status:'Pendiente',everLive:false,cost:110,date:'2026-08-21',meta:'Coste $110 · estado y modalidad pendientes'},
+    {name:'PROPR 5K HWyRm',prop:'Propr',size:5000,status:'Challenge',everLive:false,cost:null,date:'2026-09-29',meta:'Challenge activa · bot LIT · riesgo $60; modo recuperación $40 tras DD de $150 hasta volver a positivo'}
   ],
   moves: [
     {name:'Compra Breakout 10K #2',type:'Compra',prop:'Breakout',amount:-40,date:null},
