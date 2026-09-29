@@ -1,0 +1,41 @@
+window.DASHBOARD_DATA = {
+  balanceInitial: 1000,
+  maxFundedHistorical: 35000,
+  updatedAt: "2026-09-29",
+  accounts: [
+    {name:'Breakout 10K #1',prop:'Breakout',size:10000,status:'Perdida',everLive:true,cost:40,date:null,meta:'Coste $40 · perdida 27/08/2026 · llegó a Live'},
+    {name:'Breakout 10K #2',prop:'Breakout',size:10000,status:'Perdida',everLive:true,cost:40,date:null,meta:'Coste $40 · perdida 27/08/2026 · llegó a Live'},
+    {name:'Breakout 25K #1',prop:'Breakout',size:25000,status:'Perdida',everLive:false,cost:130,date:null,meta:'Coste $130 · perdida 01/09/2026 en Challenge · modalidad exacta pendiente'},
+    {name:'Breakout 25K #2',prop:'Breakout',size:25000,status:'Perdida',everLive:false,cost:150,date:null,meta:'1 Step · coste $150 · perdida'},
+    {name:'Breakout 10K #3',prop:'Breakout',size:10000,status:'Perdida',everLive:false,cost:40,date:null,meta:'Coste $40 · perdida 31/08/2026 en Challenge · modalidad pendiente de confirmar'},
+    {name:'Breakout 10K #4',prop:'Breakout',size:10000,status:'Challenge',everLive:false,cost:40,date:'2026-09-01',meta:'Coste $40 · comprada 01/09/2026 · modalidad pendiente de confirmar'},
+    {name:'Breakout 5K #1',prop:'Breakout',size:5000,status:'Perdida',everLive:false,cost:20,date:'2026-09-01',meta:'Coste $20 · perdida 02/09/2026 en Challenge · modalidad pendiente de confirmar'},
+    {name:'Breakout 5K #2',prop:'Breakout',size:5000,status:'Live',everLive:true,cost:20,date:'2026-09-01',meta:'Coste $20 · Live 02/09/2026 · modalidad pendiente de confirmar'},
+    {name:'Breakout 5K #3',prop:'Breakout',size:5000,status:'Challenge',everLive:false,cost:20,date:'2026-09-01',meta:'Coste $20 · comprada 01/09/2026 · modalidad pendiente de confirmar'},
+    {name:'Breakout 5K #4',prop:'Breakout',size:5000,status:'Challenge',everLive:false,cost:20,date:'2026-09-01',meta:'Coste $20 · comprada 01/09/2026 · modalidad pendiente de confirmar'},
+    {name:'Breakout 5K #5',prop:'Breakout',size:5000,status:'Challenge',everLive:false,cost:20,date:'2026-09-01',meta:'Coste $20 · comprada 01/09/2026 · modalidad pendiente de confirmar'},
+    {name:'Orion 5K',prop:'Orion',size:5000,status:'Perdida',everLive:true,cost:50,date:null,meta:'Coste $50 · perdida 02/09/2026 · llegó a Live'},
+    {name:'BitFunded 5K',prop:'BitFunded',size:5000,status:'Perdida',everLive:true,cost:49,date:null,meta:'Coste $49 · perdida 24/08/2026 · llegó a Live'},
+    {name:'BitFunded 10K #1',prop:'BitFunded',size:10000,status:'Challenge',everLive:false,cost:49.5,date:null,meta:'2 Steps · coste imputado $49.50'},
+    {name:'BitFunded 10K #2',prop:'BitFunded',size:10000,status:'Live',everLive:true,cost:49.5,date:null,meta:'2 Steps · coste imputado $49.50 · Live 26/08/2026'},
+    {name:'BitFunded 25K #1',prop:'BitFunded',size:25000,status:'Perdida',everLive:false,cost:124.5,date:null,meta:'2 Steps · coste imputado $124.50 · perdida 27/08/2026 en Challenge'},
+    {name:'BitFunded 25K #2',prop:'BitFunded',size:25000,status:'Challenge',everLive:false,cost:124.5,date:null,meta:'2 Steps · coste imputado $124.50'},
+    {name:'Propr 10K',prop:'Propr',size:10000,status:'Pendiente',everLive:false,cost:110,date:'2026-08-21',meta:'Coste $110 · estado y modalidad pendientes'}
+  ],
+  moves: [
+    {name:'Compra Breakout 10K #2',type:'Compra',prop:'Breakout',amount:-40,date:null},
+    {name:'Compra Orion 5K',type:'Compra',prop:'Orion',amount:-50,date:null},
+    {name:'Compra Breakout 10K #1',type:'Compra',prop:'Breakout',amount:-40,date:null},
+    {name:'Compra BitFunded 25K x2',type:'Compra',prop:'BitFunded',amount:-249,date:null},
+    {name:'Compra Breakout 25K #1',type:'Compra',prop:'Breakout',amount:-130,date:null},
+    {name:'Compra BitFunded 5K',type:'Compra',prop:'BitFunded',amount:-49,date:null},
+    {name:'Compra BitFunded 10K x2',type:'Compra',prop:'BitFunded',amount:-99,date:null},
+    {name:'Compra Propr 10K',type:'Compra',prop:'Propr',amount:-110,date:'2026-08-21'},
+    {name:'Payout Breakout 10K',type:'Payout',prop:'Breakout',amount:290,date:'2026-08-26'},
+    {name:'Compra Breakout 25K #2',type:'Compra',prop:'Breakout',amount:-150,date:null},
+    {name:'Aporte fondos internos',type:'Ajuste',prop:null,amount:400,date:'2026-08-27'},
+    {name:'Compra Breakout 10K #3',type:'Compra',prop:'Breakout',amount:-40,date:null},
+    {name:'Compra Breakout 10K #4',type:'Compra',prop:'Breakout',amount:-40,date:'2026-09-01'},
+    {name:'Compra Breakout 5K x5',type:'Compra',prop:'Breakout',amount:-100,date:'2026-09-01'}
+  ]
+};
