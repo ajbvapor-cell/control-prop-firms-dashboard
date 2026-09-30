@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>GRANJA PROP 5K // COMMAND CENTER</title>
+<link rel="stylesheet" href="granja.css">
+</head>
+<body>
+<div class="shell">
+  <div class="beam"></div>
+  <header class="hero">
+    <div>
+      <div class="kicker">GRANJA PROP 5K // COMMAND CENTER</div>
+      <h1>5 funded. Una fábrica, no cinco cuentas.</h1>
+      <p class="sub">Modelo LIT · CSV 30/09/2026 · control manual seguro · sin tocar el bot</p>
+    </div>
+    <div class="hero-actions">
+      <button id="addAccount" class="btn">+ Añadir cuenta</button>
+      <button id="resetDemo" class="btn ghost">Restaurar modelo</button>
+    </div>
+  </header>
+
+  <section class="kpis" id="topKpis"></section>
+
+  <section class="split">
+    <article class="panel objective">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">OBJETIVO ACTUAL</span>
+          <h2 id="nextObjective">Conseguir 5 cuentas funded</h2>
+        </div>
+        <span class="pill cyan" id="livePill">0 / 5 LIVE</span>
+      </div>
+      <div class="big-progress"><span id="liveProgress"></span></div>
+      <div class="objective-grid">
+        <div><span>Coste estándar 5 challenges</span><strong>$300</strong></div>
+        <div><span>Target por challenge</span><strong>+$500</strong></div>
+        <div><span>DD diario</span><strong>3% / $150 @ 5K</strong></div>
+        <div><span>DD total</span><strong>$300 estático</strong></div>
+      </div>
+      <p class="note">El límite diario real se recalcula a las 00:00 UTC desde el balance de inicio de día. El motor de riesgo usa equity y deja margen adicional.</p>
+    </article>
+
+    <article class="panel blueprint">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">BLUEPRINT RECOMENDADO</span>
+          <h2>Riesgo por fase</h2>
+        </div>
+        <span class="pill green">LIT</span>
+      </div>
+      <div class="phase-grid">
+        <div class="phase">
+          <span>CHALLENGE CORE</span>
+          <strong>$50 → $25</strong>
+          <small>Recovery desde -$75 · guard 1.40x</small>
+        </div>
+        <div class="phase">
+          <span>FUNDED · 1er payout</span>
+          <strong>$40 → $20</strong>
+          <small>Recovery desde -$100 · payout objetivo $50 bruto</small>
+        </div>
+        <div class="phase">
+          <span>FUNDED · POST PAYOUT</span>
+          <strong>$50 → $25</strong>
+          <small>Recovery desde -$75 · payout objetivo $250 bruto</small>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <span class="eyebrow">PIPELINE</span>
+        <h2>Cuentas de la granja</h2>
+      </div>
+      <span class="muted">Editable · guardado en este navegador</span>
+    </div>
+    <div id="accountGrid" class="account-grid"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <span class="eyebrow">MOTOR ESTADÍSTICO</span>
+        <h2>Qué dice el CSV de LIT</h2>
+      </div>
+      <span class="pill amber">1.323 trades</span>
+    </div>
+    <div class="stats-grid">
+      <div class="stat"><span>Win rate</span><strong>60,24%</strong><small>797 W / 526 L</small></div>
+      <div class="stat"><span>Profit Factor</span><strong>1,39</strong><small>Normalizado a R</small></div>
+      <div class="stat"><span>Esperanza</span><strong>+0,156R</strong><small>Por trade histórico</small></div>
+      <div class="stat"><span>Peor pérdida</span><strong>-1,60R</strong><small>Outlier observado</small></div>
+      <div class="stat"><span>Máx. MAE</span><strong>1,58R</strong><small>Motivo del guard</small></div>
+      <div class="stat"><span>Días de muestra</span><strong>272</strong><small>27/12/25 → 30/09/26</small></div>
+    </div>
+  </section>
+
+  <section class="sim-grid">
+    <article class="panel sim-card">
+      <span class="eyebrow">CHALLENGE</span>
+      <h2>CORE 50 / 25</h2>
+      <div class="metric-row"><span>Pass ≤ 60 días · 1 cuenta</span><strong>98,51%</strong></div>
+      <div class="metric-row"><span>5 funded ≤ 60 días</span><strong>92,39%</strong></div>
+      <div class="metric-row"><span>Mediana para las 5</span><strong>26 días</strong></div>
+      <div class="metric-row"><span>5 funded ≤ 120 días</span><strong>94,77%</strong></div>
+      <div class="metric-row"><span>P95 DD · 1 cuenta</span><strong>$228,73</strong></div>
+      <p class="note">Block bootstrap preservando bloques temporales de 7 días, MFE/MAE y daily guard. No es una garantía de pass.</p>
+    </article>
+
+    <article class="panel sim-card">
+      <span class="eyebrow">FUNDED · PRIMER COBRO</span>
+      <h2>40 / 20 · payout $50</h2>
+      <div class="metric-row"><span>Primer payout ≤ 60 días</span><strong>99,70%</strong></div>
+      <div class="metric-row"><span>Mediana</span><strong>1 día</strong></div>
+      <div class="metric-row"><span>P75</span><strong>3 días</strong></div>
+      <div class="metric-row"><span>Payout neto medio al disparar</span><strong>$54,88</strong></div>
+      <div class="metric-row"><span>P95 DD hasta 1er payout</span><strong>$184,71</strong></div>
+      <p class="note">20.000 trayectorias bootstrap. El payout de Propr barre todo el profit disponible y entrega el 80% al trader.</p>
+    </article>
+
+    <article class="panel sim-card accent">
+      <span class="eyebrow">PRODUCCIÓN · 5 FUNDED</span>
+      <h2>50 / 25 · payout $250</h2>
+      <div class="metric-row"><span>Cash medio 90 días</span><strong>$9.569,55</strong></div>
+      <div class="metric-row"><span>Cash medio / mes</span><strong>$3.189,85</strong></div>
+      <div class="metric-row"><span>P10 · 90 días</span><strong>$7.423,85</strong></div>
+      <div class="metric-row"><span>P90 · 90 días</span><strong>$11.653,26</strong></div>
+      <div class="metric-row"><span>Payouts medios / 90 días</span><strong>48,08</strong></div>
+      <p class="note">5.000 simulaciones de granjas de 5 cuentas. Se observaron 0 breaches en 25.000 caminos de cuenta con este guard; eso no implica probabilidad real cero.</p>
+    </article>
+  </section>
+
+  <section class="split">
+    <article class="panel">
+      <div class="panel-head">
+        <div><span class="eyebrow">ECONOMÍA</span><h2>Caja de la granja</h2></div>
+      </div>
+      <div class="cash-grid" id="cashGrid"></div>
+      <div class="breakbar"><span id="breakBar"></span></div>
+      <p class="note" id="cashNote"></p>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head">
+        <div><span class="eyebrow">REGLAS PROPR</span><h2>Classic 1-Step 5K</h2></div>
+      </div>
+      <div class="rules">
+        <div><span>Precio estándar</span><strong>$60</strong></div>
+        <div><span>Target challenge</span><strong>$500</strong></div>
+        <div><span>Daily loss</span><strong>3%</strong></div>
+        <div><span>Max DD</span><strong>6% estático</strong></div>
+        <div><span>Profit split funded</span><strong>80%</strong></div>
+        <div><span>Payout</span><strong>On-demand</strong></div>
+      </div>
+      <p class="note">Fuente comprobada 30/09/2026: <a href="https://www.propr.buzz/rules" target="_blank" rel="noreferrer">Propr Rulebook</a>. Las cuentas activas se rigen por las reglas vigentes al activarse.</p>
+    </article>
+  </section>
+
+  <section class="panel caution">
+    <span class="eyebrow">LECTURA CORRECTA DEL MODELO</span>
+    <p>El modelo usa el histórico cargado de LIT y no supone que el futuro repita exactamente ese régimen. No incluye impuestos, caídas de API, diferencias de fills, cambios de reglas, latencia ni costes de reposición que todavía no hayan ocurrido. El dashboard separa deliberadamente <b>challenge</b>, <b>primer payout</b> y <b>post-payout</b>.</p>
+  </section>
+
+  <footer>GRANJA PROP 5K · V1 · 30/09/2026 · CONTROL MANUAL + MODELO ESTADÍSTICO</footer>
+</div>
+
+<script src="granja.js"></script>
+</body>
+</html>
