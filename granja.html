@@ -14,7 +14,7 @@
     <div>
       <div class="kicker">GRANJA PROP // ROADMAP 300K</div>
       <h1>Challenges → Funded → Payouts → Escala</h1>
-      <p class="sub">Motor LIT · CORE 40/20 · deep recovery 10 · objetivo máximo funded PROPR: $300K</p>
+      <p class="sub">Motor LIT · CORE 40/20 · recovery desde -$150 · guard diario -$130 · objetivo máximo funded PROPR: $300K</p>
     </div>
     <div class="hero-actions">
       <button class="btn" id="addPayout">+ Registrar payout</button>
@@ -60,7 +60,7 @@
       <div class="panel-head">
         <div>
           <span class="eyebrow">SIGUIENTE MOVIMIENTO</span>
-          <h2 id="nextActionTitle">Activar Cuenta 2 mañana</h2>
+          <h2 id="nextActionTitle">Activar siguiente 5K cuando decidas</h2>
         </div>
         <span class="pill cyan" id="nextBuyBadge">FASE 1</span>
       </div>
@@ -76,14 +76,14 @@
         <span class="pill green">TURBO OFF</span>
       </div>
       <div class="risk-grid">
-        <div><span>Normal</span><strong>$40</strong><small>1R operativo</small></div>
-        <div><span>Recovery</span><strong>$20</strong><small>Reducir tras DD</small></div>
-        <div><span>Deep recovery</span><strong>$10</strong><small>Solo cerca del límite</small></div>
-        <div><span>Daily DD</span><strong>3%</strong><small>$150 al inicio en 5K</small></div>
+        <div><span>Normal</span><strong>$40</strong><small>Riesgo por SL</small></div>
+        <div><span>Recovery</span><strong>$20</strong><small>Desde PnL acumulado ≤ -$150</small></div>
+        <div><span>Salida recovery</span><strong>$0</strong><small>Vuelve a $40 al recuperar</small></div>
+        <div><span>Guard diario</span><strong>-$130</strong><small>No abrir si un SL puede alcanzarlo</small></div>
         <div><span>Total DD</span><strong>$300</strong><small>6% estático</small></div>
         <div><span>Target 5K</span><strong>+$500</strong><small>10% challenge</small></div>
       </div>
-      <p class="note">El riesgo se limita dinámicamente si un SL completo puede acercar demasiado la equity al límite. La prioridad actual es fabricar funded, no acelerar a cualquier precio.</p>
+      <p class="note">Cada cuenta decide su riesgo por su propio PnL: $40 normal, $20 tras tocar -$150 acumulados y vuelta a $40 al recuperar $0. El guard operativo diario es -$130.</p>
     </article>
   </section>
 
@@ -93,7 +93,7 @@
         <span class="eyebrow">FASE 1 · LANZAMIENTO</span>
         <h2>Las 5 primeras PROPR 5K</h2>
       </div>
-      <span class="muted">Arranque escalonado: una nueva cuenta por día</span>
+      <span class="muted" id="launchStatus">1 activa · 4 preparadas en OFF</span>
     </div>
     <div id="accountGrid" class="account-grid"></div>
   </section>
@@ -174,8 +174,8 @@
         <span class="pill pink">80% split</span>
       </div>
       <div class="milk-grid">
-        <div><span>Pre-primer payout</span><strong>40 / 20</strong><small>Primero cobrar</small></div>
-        <div><span>Post-payout</span><strong>40 / 20</strong><small>CORE hasta tener más evidencia</small></div>
+        <div><span>Pre-primer payout</span><strong>40 / 20</strong><small>Recovery desde -150</small></div>
+        <div><span>Post-payout</span><strong>40 / 20</strong><small>CORE por cuenta</small></div>
         <div><span>Turbo futuro</span><strong>Bloqueado</strong><small>Activar solo si mejora $/mes</small></div>
       </div>
       <p class="note">El dashboard separará siempre capital funded, cash retirado y gasto en challenges. No confundiremos “saldo de cuenta” con dinero realmente cobrado.</p>
