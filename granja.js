@@ -1,14 +1,17 @@
 const KEY='granja_prop_300k_v2';
 const START_DATE='2026-09-30';
 const COSTS={5000:60,10000:110,25000:275};
+const VERSION=3;
 const base={
-  spent:60,withdrawn:0,
+  version:VERSION,
+  spent:300,
+  withdrawn:0,
   accounts:[
-    {name:'HwyRm',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,deep:10},
-    {name:'Cuenta 2',size:5000,status:'Esperando',pnl:0,daily:0,start:'01/10/26',risk:40,recovery:20,deep:10},
-    {name:'Cuenta 3',size:5000,status:'Esperando',pnl:0,daily:0,start:'02/10/26',risk:40,recovery:20,deep:10},
-    {name:'Cuenta 4',size:5000,status:'Esperando',pnl:0,daily:0,start:'03/10/26',risk:40,recovery:20,deep:10},
-    {name:'Cuenta 5',size:5000,status:'Esperando',pnl:0,daily:0,start:'04/10/26',risk:40,recovery:20,deep:10}
+    {name:'PROPR 5K HWyRm',short:'HWyRm',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:mh3j2P46HWyR',webhook:'/api/webhook-5k',botEnabled:true},
+    {name:'PROPR 5K1 · HAM',short:'5K1',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:o4qVJggpNHAM',webhook:'/api/webhook-5k1',botEnabled:false},
+    {name:'PROPR 5K2 · PIRG',short:'5K2',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:PirgL8LEDDss',webhook:'/api/webhook-5k2',botEnabled:false},
+    {name:'PROPR 5K3 · JY16',short:'5K3',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:JY16tX1UzHkc',webhook:'/api/webhook-5k3',botEnabled:false},
+    {name:'PROPR 5K4 · 6HED',short:'5K4',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:6HEdbGfsj7rp',webhook:'/api/webhook-5k4',botEnabled:false}
   ]
 };
 const scenarios={
@@ -19,8 +22,31 @@ const scenarios={
 let state=load();
 let scenario='base';
 function clone(v){return JSON.parse(JSON.stringify(v))}
-function load(){try{const s=JSON.parse(localStorage.getItem(KEY));return s&&Array.isArray(s.accounts)?s:clone(base)}catch{return clone(base)}}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function migrate(saved){
+  if(!saved||!Array.isArray(saved.accounts))return clone(base);
+  const out=clone(base);
+  out.spent=Math.max(Number(saved.spent)||0,base.spent);
+  out.withdrawn=Number(saved.withdrawn)||0;
+  out.accounts=base.accounts.map((fresh,i)=>{
+    const old=saved.accounts[i]||{};
+    return {
+      ...fresh,
+      pnl:Number(old.pnl)||0,
+      daily:Number(old.daily)||0,
+      status:['Funded','Muerta'].includes(old.status)?old.status:fresh.status
+    };
+  });
+  return out;
+}
+function load(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(KEY));
+    const migrated=migrate(saved);
+    localStorage.setItem(KEY,JSON.stringify(migrated));
+    return migrated;
+  }catch{return clone(base)}
+}
+function save(){state.version=VERSION;localStorage.setItem(KEY,JSON.stringify(state))}
 const money=v=>(Number(v)<0?'-$':'$')+Math.abs(Number(v)||0).toLocaleString('en-US',{maximumFractionDigits:0});
 const k=v=>'$'+((Number(v)||0)/1000).toLocaleString('en-US',{maximumFractionDigits:0})+'K';
 const pct=v=>(Number(v)||0).toFixed(1)+'%';
@@ -53,7 +79,7 @@ function renderMission(){
   const waiting=state.accounts.find(a=>a.status==='Esperando');
   let title,copy;
   if(cap>=300000){title='MODO ORDEÑO · $300K funded';copy='Techo funded alcanzado. El objetivo pasa a ser cash retirado por mes, supervivencia y detección temprana de deterioro del edge.'}
-  else if(cap<25000){title='HITO 1 · conseguir $25K funded';copy='Las cinco primeras 5K se activan escalonadas. CORE 40/20 y deep recovery 10 si el guard lo exige.'}
+  else if(cap<25000){title='HITO 1 · conseguir $25K funded';copy='Las cinco PROPR 5K ya están compradas y conectadas. Una está ON y las otras se activan de forma escalonada con CORE 40/20.'}
   else{title='Siguiente hito · '+k(target)+' funded';copy=np.why+'. Financiar la expansión preferentemente con payouts ya cobrados.'}
   document.getElementById('missionTitle').textContent=title;
   document.getElementById('missionCopy').textContent=copy;
@@ -78,11 +104,13 @@ function renderRoadmap(){
   document.getElementById('roadmap').innerHTML=items.map((m,i)=>`<div class="milestone ${milestoneState(m.target,cap)}"><span class="step">HITO ${i+1}</span><strong>${m.title}</strong><small>${m.desc}</small><small>${m.date}</small></div>`).join('');
 }
 function renderNext(){
-  const cap=fundedCapital(), waiting=state.accounts.find(a=>a.status==='Esperando'), np=nextPurchase(cap);
-  if(waiting){
-    document.getElementById('nextActionTitle').textContent='Activar '+waiting.name+' · '+waiting.start;
+  const cap=fundedCapital();
+  const nextOff=state.accounts.find(a=>!a.botEnabled&&a.status!=='Funded'&&a.status!=='Muerta');
+  const np=nextPurchase(cap);
+  if(nextOff){
+    document.getElementById('nextActionTitle').textContent='Activar '+nextOff.name+' cuando decidas';
     document.getElementById('nextBuyBadge').textContent='FASE 1';
-    document.getElementById('nextAction').innerHTML=`<div><span class="eyebrow">ACCIÓN</span><strong>Comprar / activar 5K</strong><small>Coste estándar $60 · LIT 40/20/10</small></div><div><span class="eyebrow">REGLA</span><strong>No clonar arranque</strong><small>Primera señal a partir del día asignado</small></div>`;
+    document.getElementById('nextAction').innerHTML=`<div><span class="eyebrow">SIGUIENTE INTERRUPTOR</span><strong>${nextOff.short} · BOT OFF</strong><small>${nextOff.webhook}</small></div><div><span class="eyebrow">CUENTA</span><strong>${nextOff.accountId.split(':').pop()}</strong><small>Ya comprada · no requiere nueva compra</small></div>`;
   }else{
     document.getElementById('nextActionTitle').textContent=np.why;
     document.getElementById('nextBuyBadge').textContent=cap>=300000?'ORDEÑO':'ESCALA';
@@ -90,12 +118,18 @@ function renderNext(){
   }
 }
 function renderAccounts(){
+  const onCount=state.accounts.filter(a=>a.botEnabled).length;
+  const launch=document.getElementById('launchStatus');
+  if(launch)launch.textContent=`${onCount} activa${onCount===1?'':'s'} · ${state.accounts.length-onCount} preparada${state.accounts.length-onCount===1?'':'s'} en OFF`;
   document.getElementById('accountGrid').innerHTML=state.accounts.slice(0,5).map((a,i)=>`<div class="account-card">
-    <div class="account-top"><div><div class="account-name">${a.name}</div><div class="account-meta">PROPR 5K · LIT · inicio ${a.start}</div></div><span class="pill ${statusClass(a.status)}">${a.status}</span></div>
-    <label>Estado<select data-i="${i}" data-k="status">${['Esperando','Challenge','Funded','Muerta'].map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}</select></label>
+    <div class="account-top"><div><div class="account-name">${a.name}</div><div class="account-meta">PROPR 5K · LIT · ${a.accountId.split(':').pop()}</div></div><span class="pill ${a.botEnabled?'green':'red'}">${a.botEnabled?'BOT ON':'BOT OFF'}</span></div>
+    <div class="account-tech"><span>ID</span><code>${a.accountId}</code></div>
+    <div class="account-tech"><span>Webhook</span><code>${a.webhook}</code></div>
+    <label>Estado<select data-i="${i}" data-k="status">${['Challenge','Funded','Muerta'].map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}</select></label>
     <label>PnL actual ($)<input data-i="${i}" data-k="pnl" type="number" value="${a.pnl}"></label>
     <label>PnL diario ($)<input data-i="${i}" data-k="daily" type="number" value="${a.daily}"></label>
-    <div class="account-bottom"><div><span>CORE</span><strong>$${a.risk}</strong></div><div><span>Recovery</span><strong>$${a.recovery}</strong></div><div><span>Deep</span><strong>$${a.deep}</strong></div></div>
+    <div class="account-bottom"><div><span>CORE</span><strong>$${a.risk}</strong></div><div><span>Recovery</span><strong>$${a.recovery}</strong></div><div><span>Trigger</span><strong>-$150</strong></div></div>
+    <div class="account-guard"><span>Guard diario</span><strong>-$130</strong><span>Salida recovery</span><strong>$0</strong></div>
     <div class="progress"><span style="width:${Math.max(0,Math.min(100,(Number(a.pnl)+300)/800*100))}%"></span></div>
   </div>`).join('');
   document.querySelectorAll('[data-i]').forEach(el=>el.onchange=e=>{const i=Number(e.target.dataset.i),key=e.target.dataset.k;state.accounts[i][key]=key==='status'?e.target.value:Number(e.target.value);save();render()});
@@ -134,5 +168,5 @@ document.querySelectorAll('#scenarioTabs button').forEach(b=>b.onclick=()=>{scen
 document.getElementById('spentInput').onchange=e=>{state.spent=Math.max(0,Number(e.target.value)||0);save();render()};
 document.getElementById('withdrawnInput').onchange=e=>{state.withdrawn=Math.max(0,Number(e.target.value)||0);save();render()};
 document.getElementById('addPayout').onclick=()=>{const v=Number(prompt('Importe NETO cobrado del payout ($):','0'));if(v>0){state.withdrawn+=v;save();render()}};
-document.getElementById('resetDemo').onclick=()=>{if(confirm('¿Restaurar el plan inicial de la granja?')){state=clone(base);save();render()}};
+document.getElementById('resetDemo').onclick=()=>{if(confirm('¿Restaurar el estado base actual de la granja?')){state=clone(base);save();render()}};
 render();
