@@ -1,17 +1,17 @@
 const KEY='granja_prop_300k_v2';
 const START_DATE='2026-09-30';
-const COSTS={5000:60,10000:110,25000:275};
-const VERSION=3;
+const COSTS={5000:48,10000:110,25000:275};
+const VERSION=4;
 const base={
   version:VERSION,
-  spent:300,
+  spent:252,
   withdrawn:0,
   accounts:[
-    {name:'PROPR 5K HWyRm',short:'HWyRm',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:mh3j2P46HWyR',webhook:'/api/webhook-5k',botEnabled:true},
-    {name:'PROPR 5K1 · HAM',short:'5K1',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:o4qVJggpNHAM',webhook:'/api/webhook-5k1',botEnabled:false},
-    {name:'PROPR 5K2 · PIRG',short:'5K2',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:PirgL8LEDDss',webhook:'/api/webhook-5k2',botEnabled:false},
-    {name:'PROPR 5K3 · JY16',short:'5K3',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:JY16tX1UzHkc',webhook:'/api/webhook-5k3',botEnabled:false},
-    {name:'PROPR 5K4 · 6HED',short:'5K4',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',risk:40,recovery:20,accountId:'urn:prp-account:6HEdbGfsj7rp',webhook:'/api/webhook-5k4',botEnabled:false}
+    {name:'PROPR 5K HWyRm',short:'HWyRm',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',cost:60,risk:40,recovery:20,accountId:'urn:prp-account:mh3j2P46HWyR',webhook:'/api/webhook-5k',botEnabled:true},
+    {name:'PROPR 5K1 · HAM',short:'5K1',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',cost:48,risk:40,recovery:20,accountId:'urn:prp-account:o4qVJggpNHAM',webhook:'/api/webhook-5k1',botEnabled:false},
+    {name:'PROPR 5K2 · PIRG',short:'5K2',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',cost:48,risk:40,recovery:20,accountId:'urn:prp-account:PirgL8LEDDss',webhook:'/api/webhook-5k2',botEnabled:false},
+    {name:'PROPR 5K3 · JY16',short:'5K3',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',cost:48,risk:40,recovery:20,accountId:'urn:prp-account:JY16tX1UzHkc',webhook:'/api/webhook-5k3',botEnabled:false},
+    {name:'PROPR 5K4 · 6HED',short:'5K4',size:5000,status:'Challenge',pnl:0,daily:0,start:'30/09/26',cost:48,risk:40,recovery:20,accountId:'urn:prp-account:6HEdbGfsj7rp',webhook:'/api/webhook-5k4',botEnabled:false}
   ]
 };
 const scenarios={
@@ -25,7 +25,8 @@ function clone(v){return JSON.parse(JSON.stringify(v))}
 function migrate(saved){
   if(!saved||!Array.isArray(saved.accounts))return clone(base);
   const out=clone(base);
-  out.spent=Math.max(Number(saved.spent)||0,base.spent);
+  const savedSpent=Number(saved.spent)||0;
+  out.spent=(Number(saved.version)||0)<4 && savedSpent===300 ? 252 : savedSpent;
   out.withdrawn=Number(saved.withdrawn)||0;
   out.accounts=base.accounts.map((fresh,i)=>{
     const old=saved.accounts[i]||{};
@@ -56,7 +57,7 @@ function statusClass(s){return s==='Funded'?'green':s==='Challenge'?'amber':s===
 function milestoneState(target,cap){return cap>=target?'done':cap<target&&target===nextMilestone(cap)?'current':''}
 function nextMilestone(cap){return [25000,75000,150000,300000].find(x=>cap<x)||300000}
 function nextPurchase(cap){
-  if(cap<25000)return {label:'PROPR 5K',cost:60,size:5000,why:'Completar las 5 primeras 5K funded'};
+  if(cap<25000)return {label:'PROPR 5K',cost:COSTS[5000],size:5000,why:'Completar las 5 primeras 5K funded'};
   if(cap<75000)return {label:'PROPR 10K',cost:110,size:10000,why:'Construir el bloque de 5×10K'};
   if(cap<150000)return {label:'PROPR 25K',cost:275,size:25000,why:'Añadir 3×25K para llegar a 150K'};
   if(cap<300000)return {label:'PROPR 25K',cost:275,size:25000,why:'Completar 6×25K adicionales hasta 300K'};
@@ -122,7 +123,7 @@ function renderAccounts(){
   const launch=document.getElementById('launchStatus');
   if(launch)launch.textContent=`${onCount} activa${onCount===1?'':'s'} · ${state.accounts.length-onCount} preparada${state.accounts.length-onCount===1?'':'s'} en OFF`;
   document.getElementById('accountGrid').innerHTML=state.accounts.slice(0,5).map((a,i)=>`<div class="account-card">
-    <div class="account-top"><div><div class="account-name">${a.name}</div><div class="account-meta">PROPR 5K · LIT · ${a.accountId.split(':').pop()}</div></div><span class="pill ${a.botEnabled?'green':'red'}">${a.botEnabled?'BOT ON':'BOT OFF'}</span></div>
+    <div class="account-top"><div><div class="account-name">${a.name}</div><div class="account-meta">PROPR 5K · LIT · Coste ${money(a.cost)} · ${a.accountId.split(':').pop()}</div></div><span class="pill ${a.botEnabled?'green':'red'}">${a.botEnabled?'BOT ON':'BOT OFF'}</span></div>
     <div class="account-tech"><span>ID</span><code>${a.accountId}</code></div>
     <div class="account-tech"><span>Webhook</span><code>${a.webhook}</code></div>
     <label>Estado<select data-i="${i}" data-k="status">${['Challenge','Funded','Muerta'].map(s=>`<option ${s===a.status?'selected':''}>${s}</option>`).join('')}</select></label>
@@ -146,7 +147,7 @@ function renderScenario(){
 function renderLadder(){
   const cap=fundedCapital();
   const rows=[
-    {name:'5× PROPR 5K',capital:25000,cost:300},
+    {name:'5× PROPR 5K',capital:25000,cost:252},
     {name:'5× PROPR 10K',capital:75000,cost:550},
     {name:'3× PROPR 25K',capital:150000,cost:825},
     {name:'6× PROPR 25K',capital:300000,cost:1650}
