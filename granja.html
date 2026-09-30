@@ -3,80 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>GRANJA PROP 5K // COMMAND CENTER</title>
+<title>GRANJA PROP 5K // ROADMAP 300K</title>
 <link rel="stylesheet" href="granja.css">
 </head>
 <body>
 <div class="shell">
   <div class="beam"></div>
+
   <header class="hero">
     <div>
-      <div class="kicker">GRANJA PROP 5K // COMMAND CENTER</div>
-      <h1>5 funded. Una fábrica, no cinco cuentas.</h1>
-      <p class="sub">Modelo LIT · CSV 30/09/2026 · control manual seguro · sin tocar el bot</p>
+      <div class="kicker">GRANJA PROP // ROADMAP 300K</div>
+      <h1>Challenges → Funded → Payouts → Escala</h1>
+      <p class="sub">Motor LIT · CORE 40/20 · deep recovery 10 · objetivo máximo funded PROPR: $300K</p>
     </div>
     <div class="hero-actions">
-      <button id="addAccount" class="btn">+ Añadir cuenta</button>
-      <button id="resetDemo" class="btn ghost">Restaurar modelo</button>
+      <button class="btn" id="addPayout">+ Registrar payout</button>
+      <button class="btn ghost" id="resetDemo">Restaurar plan</button>
     </div>
   </header>
 
   <section class="kpis" id="topKpis"></section>
 
+  <section class="panel mission">
+    <div class="mission-head">
+      <div>
+        <span class="eyebrow">MISIÓN ACTUAL</span>
+        <h2 id="missionTitle">Completar las 5 primeras funded</h2>
+        <p class="mission-copy" id="missionCopy"></p>
+      </div>
+      <div class="mission-ring" id="missionRing">
+        <div><strong id="missionPct">0%</strong><span>al hito</span></div>
+      </div>
+    </div>
+    <div class="big-progress"><span id="missionBar"></span></div>
+    <div class="mission-grid" id="missionGrid"></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <span class="eyebrow">HOJA DE RUTA</span>
+        <h2>$25K → $75K → $150K → $300K funded</h2>
+      </div>
+      <span class="pill green">19 cuentas objetivo</span>
+    </div>
+    <div class="roadmap" id="roadmap"></div>
+    <div class="roadmap-summary">
+      <span>Coste teórico primera pasada</span><strong>$3.325</strong>
+      <span>Estructura final</span><strong>5×5K + 5×10K + 9×25K</strong>
+      <span>Capital máximo</span><strong>$300.000</strong>
+    </div>
+  </section>
+
   <section class="split">
-    <article class="panel objective">
+    <article class="panel">
       <div class="panel-head">
         <div>
-          <span class="eyebrow">OBJETIVO ACTUAL</span>
-          <h2 id="nextObjective">Conseguir 5 cuentas funded</h2>
+          <span class="eyebrow">SIGUIENTE MOVIMIENTO</span>
+          <h2 id="nextActionTitle">Activar Cuenta 2 mañana</h2>
         </div>
-        <span class="pill cyan" id="livePill">0 / 5 LIVE</span>
+        <span class="pill cyan" id="nextBuyBadge">FASE 1</span>
       </div>
-      <div class="big-progress"><span id="liveProgress"></span></div>
-      <div class="objective-grid">
-        <div><span>Coste estándar 5 challenges</span><strong>$300</strong></div>
-        <div><span>Target por challenge</span><strong>+$500</strong></div>
-        <div><span>DD diario</span><strong>3% / $150 @ 5K</strong></div>
-        <div><span>DD total</span><strong>$300 estático</strong></div>
-      </div>
-      <p class="note">El límite diario real se recalcula a las 00:00 UTC desde el balance de inicio de día. El motor de riesgo usa equity y deja margen adicional.</p>
+      <div class="next-action" id="nextAction"></div>
     </article>
 
-    <article class="panel blueprint">
+    <article class="panel">
       <div class="panel-head">
         <div>
-          <span class="eyebrow">BLUEPRINT RECOMENDADO</span>
-          <h2>Riesgo por fase</h2>
+          <span class="eyebrow">RISK ENGINE</span>
+          <h2>CORE protegido</h2>
         </div>
-        <span class="pill green">LIT</span>
+        <span class="pill green">TURBO OFF</span>
       </div>
-      <div class="phase-grid">
-        <div class="phase">
-          <span>CHALLENGE CORE</span>
-          <strong>$50 → $25</strong>
-          <small>Recovery desde -$75 · guard 1.40x</small>
-        </div>
-        <div class="phase">
-          <span>FUNDED · 1er payout</span>
-          <strong>$40 → $20</strong>
-          <small>Recovery desde -$100 · payout objetivo $50 bruto</small>
-        </div>
-        <div class="phase">
-          <span>FUNDED · POST PAYOUT</span>
-          <strong>$50 → $25</strong>
-          <small>Recovery desde -$75 · payout objetivo $250 bruto</small>
-        </div>
+      <div class="risk-grid">
+        <div><span>Normal</span><strong>$40</strong><small>1R operativo</small></div>
+        <div><span>Recovery</span><strong>$20</strong><small>Reducir tras DD</small></div>
+        <div><span>Deep recovery</span><strong>$10</strong><small>Solo cerca del límite</small></div>
+        <div><span>Daily DD</span><strong>3%</strong><small>$150 al inicio en 5K</small></div>
+        <div><span>Total DD</span><strong>$300</strong><small>6% estático</small></div>
+        <div><span>Target 5K</span><strong>+$500</strong><small>10% challenge</small></div>
       </div>
+      <p class="note">El riesgo se limita dinámicamente si un SL completo puede acercar demasiado la equity al límite. La prioridad actual es fabricar funded, no acelerar a cualquier precio.</p>
     </article>
   </section>
 
   <section class="panel">
     <div class="panel-head">
       <div>
-        <span class="eyebrow">PIPELINE</span>
-        <h2>Cuentas de la granja</h2>
+        <span class="eyebrow">FASE 1 · LANZAMIENTO</span>
+        <h2>Las 5 primeras PROPR 5K</h2>
       </div>
-      <span class="muted">Editable · guardado en este navegador</span>
+      <span class="muted">Arranque escalonado: una nueva cuenta por día</span>
     </div>
     <div id="accountGrid" class="account-grid"></div>
   </section>
@@ -84,90 +101,94 @@
   <section class="panel">
     <div class="panel-head">
       <div>
-        <span class="eyebrow">MOTOR ESTADÍSTICO</span>
-        <h2>Qué dice el CSV de LIT</h2>
+        <span class="eyebrow">SIMULACIÓN 12 MESES</span>
+        <h2>Robustez de la fábrica</h2>
       </div>
-      <span class="pill amber">1.323 trades</span>
+      <div class="scenario-tabs" id="scenarioTabs">
+        <button data-s="base" class="active">Histórico</button>
+        <button data-s="degraded">Edge degradado</button>
+        <button data-s="stress">Estrés fuerte</button>
+      </div>
     </div>
-    <div class="stats-grid">
-      <div class="stat"><span>Win rate</span><strong>60,24%</strong><small>797 W / 526 L</small></div>
-      <div class="stat"><span>Profit Factor</span><strong>1,39</strong><small>Normalizado a R</small></div>
-      <div class="stat"><span>Esperanza</span><strong>+0,156R</strong><small>Por trade histórico</small></div>
-      <div class="stat"><span>Peor pérdida</span><strong>-1,60R</strong><small>Outlier observado</small></div>
-      <div class="stat"><span>Máx. MAE</span><strong>1,58R</strong><small>Motivo del guard</small></div>
-      <div class="stat"><span>Días de muestra</span><strong>272</strong><small>27/12/25 → 30/09/26</small></div>
-    </div>
+    <div class="scenario-hero" id="scenarioHero"></div>
+    <div class="scenario-grid" id="scenarioGrid"></div>
+    <p class="note" id="scenarioNote"></p>
   </section>
 
-  <section class="sim-grid">
-    <article class="panel sim-card">
-      <span class="eyebrow">CHALLENGE</span>
-      <h2>CORE 50 / 25</h2>
-      <div class="metric-row"><span>Pass ≤ 60 días · 1 cuenta</span><strong>98,51%</strong></div>
-      <div class="metric-row"><span>5 funded ≤ 60 días</span><strong>92,39%</strong></div>
-      <div class="metric-row"><span>Mediana para las 5</span><strong>26 días</strong></div>
-      <div class="metric-row"><span>5 funded ≤ 120 días</span><strong>94,77%</strong></div>
-      <div class="metric-row"><span>P95 DD · 1 cuenta</span><strong>$228,73</strong></div>
-      <p class="note">Block bootstrap preservando bloques temporales de 7 días, MFE/MAE y daily guard. No es una garantía de pass.</p>
+  <section class="split">
+    <article class="panel">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">ESCALADO</span>
+          <h2>Cola de compras</h2>
+        </div>
+        <span class="pill amber">Reinvertir payouts</span>
+      </div>
+      <div class="ladder" id="ladder"></div>
+      <p class="note">La prioridad es completar cada bloque funded antes de acelerar el siguiente. Las cuentas pequeñas siguen ordeñando mientras se añaden las mayores.</p>
     </article>
 
-    <article class="panel sim-card">
-      <span class="eyebrow">FUNDED · PRIMER COBRO</span>
-      <h2>40 / 20 · payout $50</h2>
-      <div class="metric-row"><span>Primer payout ≤ 60 días</span><strong>99,70%</strong></div>
-      <div class="metric-row"><span>Mediana</span><strong>1 día</strong></div>
-      <div class="metric-row"><span>P75</span><strong>3 días</strong></div>
-      <div class="metric-row"><span>Payout neto medio al disparar</span><strong>$54,88</strong></div>
-      <div class="metric-row"><span>P95 DD hasta 1er payout</span><strong>$184,71</strong></div>
-      <p class="note">20.000 trayectorias bootstrap. El payout de Propr barre todo el profit disponible y entrega el 80% al trader.</p>
-    </article>
-
-    <article class="panel sim-card accent">
-      <span class="eyebrow">PRODUCCIÓN · 5 FUNDED</span>
-      <h2>50 / 25 · payout $250</h2>
-      <div class="metric-row"><span>Cash medio 90 días</span><strong>$9.569,55</strong></div>
-      <div class="metric-row"><span>Cash medio / mes</span><strong>$3.189,85</strong></div>
-      <div class="metric-row"><span>P10 · 90 días</span><strong>$7.423,85</strong></div>
-      <div class="metric-row"><span>P90 · 90 días</span><strong>$11.653,26</strong></div>
-      <div class="metric-row"><span>Payouts medios / 90 días</span><strong>48,08</strong></div>
-      <p class="note">5.000 simulaciones de granjas de 5 cuentas. Se observaron 0 breaches en 25.000 caminos de cuenta con este guard; eso no implica probabilidad real cero.</p>
+    <article class="panel">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">CAJA</span>
+          <h2>Combustible de la granja</h2>
+        </div>
+      </div>
+      <div class="cash-grid" id="cashGrid"></div>
+      <div class="breakbar"><span id="breakBar"></span></div>
+      <p class="note" id="cashNote"></p>
+      <div class="cash-edit">
+        <label>Gastado acumulado ($)<input id="spentInput" type="number" min="0" step="1"></label>
+        <label>Payouts cobrados ($)<input id="withdrawnInput" type="number" min="0" step="1"></label>
+      </div>
     </article>
   </section>
 
   <section class="split">
     <article class="panel">
       <div class="panel-head">
-        <div><span class="eyebrow">ECONOMÍA</span><h2>Caja de la granja</h2></div>
+        <div>
+          <span class="eyebrow">EDGE MONITOR</span>
+          <h2>La variable que manda</h2>
+        </div>
+        <span class="pill cyan">LIT</span>
       </div>
-      <div class="cash-grid" id="cashGrid"></div>
-      <div class="breakbar"><span id="breakBar"></span></div>
-      <p class="note" id="cashNote"></p>
+      <div class="edge-grid">
+        <div><span>Trades muestra</span><strong>1.323</strong></div>
+        <div><span>Win rate</span><strong>60,24%</strong></div>
+        <div><span>Profit Factor</span><strong>1,39</strong></div>
+        <div><span>Esperanza</span><strong>+0,156R</strong></div>
+        <div><span>Máx. loss streak</span><strong>6</strong></div>
+        <div><span>Peor pérdida</span><strong>-1,60R</strong></div>
+      </div>
+      <p class="note">Si la esperanza real se deteriora, el dashboard debe frenar expansión antes de subir riesgo. Más riesgo no repara un edge roto.</p>
     </article>
 
     <article class="panel">
       <div class="panel-head">
-        <div><span class="eyebrow">REGLAS PROPR</span><h2>Classic 1-Step 5K</h2></div>
+        <div>
+          <span class="eyebrow">MODO ORDEÑO</span>
+          <h2>Cuando las cuentas ya están funded</h2>
+        </div>
+        <span class="pill pink">80% split</span>
       </div>
-      <div class="rules">
-        <div><span>Precio estándar</span><strong>$60</strong></div>
-        <div><span>Target challenge</span><strong>$500</strong></div>
-        <div><span>Daily loss</span><strong>3%</strong></div>
-        <div><span>Max DD</span><strong>6% estático</strong></div>
-        <div><span>Profit split funded</span><strong>80%</strong></div>
-        <div><span>Payout</span><strong>On-demand</strong></div>
+      <div class="milk-grid">
+        <div><span>Pre-primer payout</span><strong>40 / 20</strong><small>Primero cobrar</small></div>
+        <div><span>Post-payout</span><strong>40 / 20</strong><small>CORE hasta tener más evidencia</small></div>
+        <div><span>Turbo futuro</span><strong>Bloqueado</strong><small>Activar solo si mejora $/mes</small></div>
       </div>
-      <p class="note">Fuente comprobada 30/09/2026: <a href="https://www.propr.buzz/rules" target="_blank" rel="noreferrer">Propr Rulebook</a>. Las cuentas activas se rigen por las reglas vigentes al activarse.</p>
+      <p class="note">El dashboard separará siempre capital funded, cash retirado y gasto en challenges. No confundiremos “saldo de cuenta” con dinero realmente cobrado.</p>
     </article>
   </section>
 
   <section class="panel caution">
-    <span class="eyebrow">LECTURA CORRECTA DEL MODELO</span>
-    <p>El modelo usa el histórico cargado de LIT y no supone que el futuro repita exactamente ese régimen. No incluye impuestos, caídas de API, diferencias de fills, cambios de reglas, latencia ni costes de reposición que todavía no hayan ocurrido. El dashboard separa deliberadamente <b>challenge</b>, <b>primer payout</b> y <b>post-payout</b>.</p>
+    <span class="eyebrow">LECTURA CORRECTA</span>
+    <p>Las probabilidades son resultados de simulaciones construidas sobre el histórico LIT disponible, no garantías. La granja se considera sana mientras el edge siga positivo y la expansión se pague con caja, no forzando el riesgo de las cuentas.</p>
   </section>
 
-  <footer>GRANJA PROP 5K · V1 · 30/09/2026 · CONTROL MANUAL + MODELO ESTADÍSTICO</footer>
+  <footer>GRANJA PROP · ROADMAP 300K · V2 · 30/09/2026</footer>
 </div>
-
 <script src="granja.js"></script>
 </body>
 </html>
